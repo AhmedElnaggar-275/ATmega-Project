@@ -16,14 +16,14 @@ void PWM_init(channel_t channel, waveGenMode_t waveGenMode, invertMode_t invertM
 
                 case NON_INVERT:
                     // non-inverting mode: reset OC1A on compare match during upcounting, set OC1A on compare match during downcounting
-                    clearBit(TCCR1A, 6); // COM1A1 = 0
-                    setBit(TCCR1A, 7);   // COM1A0 = 1
+                    clearBit(TCCR1A, 6); // COM1A0 = 0
+                    setBit(TCCR1A, 7);   // COM1A1 = 1
                 break;
 
                 case INVERT:
                     // inverting mode: reverse operation of non-inverting mode
-                    setBit(TCCR1A, 6);   // COM1A1 = 1
-                    setBit(TCCR1A, 7);   // COM1A0 = 1
+                    setBit(TCCR1A, 6);   // COM1A0 = 1
+                    setBit(TCCR1A, 7);   // COM1A1 = 1
                 break;
             }
         break;
@@ -36,14 +36,14 @@ void PWM_init(channel_t channel, waveGenMode_t waveGenMode, invertMode_t invertM
 
                 case NON_INVERT:
                     // non-inverting mode: reset OC1B on compare match during upcounting, set OC1B on compare match during downcounting
-                    clearBit(TCCR1A, 4); // COM1B1 = 0
-                    setBit(TCCR1A, 5);   // COM1B0 = 1
+                    clearBit(TCCR1A, 4); // COM1B0 = 0
+                    setBit(TCCR1A, 5);   // COM1B1 = 1
                 break;
 
                 case INVERT:
                     // inverting mode: reverse operation of non-inverting mode
-                    setBit(TCCR1A, 4);   // COM1B1 = 1
-                    setBit(TCCR1A, 5);   // COM1B0 = 1
+                    setBit(TCCR1A, 4);   // COM1B0 = 1
+                    setBit(TCCR1A, 5);   // COM1B1 = 1
                 break;
             }
         break;
@@ -57,18 +57,18 @@ void PWM_init(channel_t channel, waveGenMode_t waveGenMode, invertMode_t invertM
 
                 case NON_INVERT:
                     // non-inverting mode: reset OC1x on compare match during upcounting, set OC1x on compare match during downcounting
-                    clearBit(TCCR1A, 6); // COM1A1 = 0
-                    setBit(TCCR1A, 7);   // COM1A0 = 1
-                    clearBit(TCCR1A, 4); // COM1B1 = 0
-                    setBit(TCCR1A, 5);   // COM1B0 = 1
+                    clearBit(TCCR1A, 6); // COM1A0 = 0
+                    setBit(TCCR1A, 7);   // COM1A1 = 1
+                    clearBit(TCCR1A, 4); // COM1B0 = 0
+                    setBit(TCCR1A, 5);   // COM1B1 = 1
                 break;
 
                 case INVERT:
                     // inverting mode: reverse operation of non-inverting mode
-                    setBit(TCCR1A, 6);   // COM1A1 = 1
-                    setBit(TCCR1A, 7);   // COM1A0 = 1
-                    setBit(TCCR1A, 4);   // COM1B1 = 1
-                    setBit(TCCR1A, 5);   // COM1B0 = 1
+                    setBit(TCCR1A, 6);   // COM1A0 = 1
+                    setBit(TCCR1A, 7);   // COM1A1 = 1
+                    setBit(TCCR1A, 4);   // COM1B0 = 1
+                    setBit(TCCR1A, 5);   // COM1B1 = 1
                 break;
             }
         break;
