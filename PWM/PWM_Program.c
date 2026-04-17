@@ -8,6 +8,7 @@
 void PWM_init(channel_t channel, waveGenMode_t waveGenMode, invertMode_t invertMode)
 {
     switch (channel){
+
         case CHANNEL_A:
             // configure OC1A pin (Pin 9 on Arduino Uno) as output
             setBit(DDRB, 1); // OC1A is on PB1
@@ -47,7 +48,7 @@ void PWM_init(channel_t channel, waveGenMode_t waveGenMode, invertMode_t invertM
             }
         break;
         
-        case (DUAL_CHANNEL)
+        case DUAL_CHANNEL:
             // configure both OC1A and OC1B pins as outputs
             setBit(DDRB, 1); // OC1A is on PB1
             setBit(DDRB, 2); // OC1B is on PB2
@@ -110,6 +111,19 @@ void PWM_setTopValue(u16 topValue)
     ICR1L = (u8)(topValue & 0xFF); 
 // bits in ICR1H will be set to the upper 8 bits of topValue , other bits will be cleared
     ICR1H = (u8)((topValue >> 8) & 0xFF);
+    /*example
+    if topValue = 1110011111011011
+    then,
+    ICR1L = (u8)(topValue & 0xFF) 
+          = (u8)(1110011111011011 & 0000000011111111) 
+          = (u8)(0000000011011011) 
+          = 11011011 (ICR1L will be set to the lower 8 bits of topValue)
+    ICR1H = (u8)((topValue >> 8) & 0xFF) 
+          = (u8)((1110011111011011 >> 8) & 0000000011111111) 
+          = (u8)(11100111 & 0000000011111111)
+          = (u8)(0000000011100111)
+          = 11100111 (ICR1H will be set to the upper 8 bits of topValue)
+    */
 }
 
 void PWM_setDutyCycle_A(u8 dutyCycle) // dutyCycle for channel A (OC1A)
@@ -119,8 +133,18 @@ void PWM_setDutyCycle_A(u8 dutyCycle) // dutyCycle for channel A (OC1A)
         dutyCycle = 100; // because duty cycle is a percentage and cannot exceed 100%
     }
 
-    u16 topvalue = ICR1L | (ICR1H << 8); // Get the current TOP value from ICR1
-    u16 compareValue = ((f32)dutyCycle * topvalue) / 100; // Calculate compare value
+    u16 topValue = ICR1L | (ICR1H << 8); // Get the current TOP value from ICR1
+    /*example
+    ICR1 = 1110011111011011
+    then,
+    ICR1H = 11100111
+    ICR1L = 11011011
+    topValue = ICR1L | (ICR1H << 8) 
+             = 11011011 | (11100111 << 8) 
+             = 11011011 | 1110011100000000 
+             = 1110011111011011  (Now topValue = ICR1 value)
+    */
+    u16 compareValue = ((f32)dutyCycle * topValue) / 100; // Calculate compare value
     OCR1AL = (u8)(compareValue & 0xFF); // Set compare value for OCR1A low byte
     OCR1AH = (u8)((compareValue >> 8) & 0xFF); // Set compare value for OCR1A high byte
 }
@@ -133,8 +157,8 @@ void PWM_setDutyCycle_B(u8 dutyCycle) // dutyCycle for channel B (OC1B)
         dutyCycle = 100; // Cap duty cycle at 100%
     }
 
-    u16 topvalue = ICR1L | (ICR1H << 8); // Get the current TOP value from ICR1
-    u16 compareValue = ((f32)dutyCycle * topvalue) / 100; // Calculate compare value
+    u16 topValue = ICR1L | (ICR1H << 8); // Get the current TOP value from ICR1
+    u16 compareValue = ((f32)dutyCycle * topValue) / 100; // Calculate compare value
     OCR1BL = (u8)(compareValue & 0xFF); // Set compare value for OCR1B low byte
     OCR1BH = (u8)((compareValue >> 8) & 0xFF); // Set compare value for OCR1B high byte
 
