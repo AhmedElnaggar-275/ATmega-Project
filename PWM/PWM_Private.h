@@ -8,7 +8,7 @@
 
 // Timer/Counter1 count value store Registers
 #define TCNT1L *((volatile u8*)0x84)
-#define TCCNT1H *((volatile u8*)0x85)
+#define TCNT1H *((volatile u8*)0x85)
 
 // Timer/Counter1 TOP and compare value store Registers
 #define ICR1L *((volatile u8*)0x86)
