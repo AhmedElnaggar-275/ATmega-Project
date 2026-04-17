@@ -35,7 +35,8 @@ typedef enum
     PSC_1024,       // prescaler = 1024 (clock frequency is divided by 1024)
 } prescaler_t;
 // note that PWM freq in timer1 is determined by the formula :
-// F_pwm = F_clk / (prescaler * (1 + TOP))
+// F_pwm = F_clk / (prescaler * (1 + TOP)*2) for Phase correct and Phase freq correct
+//F_pwm = F_clk / (prescaler * (1 + TOP)) for Fast PWM
 // where TOP is the value in ICR1 when using modes with TOP defined by ICR1 (our case)
 
 // Wave generation mode bits for Timer/Counter1
