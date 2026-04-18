@@ -4,6 +4,22 @@
 #include "PWM_Private.h"
 #include "LIB/STD_TYPES.h"
 
+// CPU frequency
+#define F_CPU 16000000UL   // 16 MHz
+
+// Wave generation mode bits for Timer/Counter1
+#define WGM10 0
+#define WGM11 1
+#define WGM12 3
+#define WGM13 4
+
+// Define inverting and non-inverting modes bits
+#define COM1A0 6
+#define COM1A1 7
+#define COM1B0 4
+#define COM1B1 5
+
+
 // Define the PWM modes, channels, inverting modes, and prescaler options
 typedef enum
 {
@@ -38,17 +54,13 @@ typedef enum
 // F_pwm = F_clk / (prescaler * (1 + TOP))
 // where TOP is the value in ICR1 when using modes with TOP defined by ICR1 (our case)
 
-// Wave generation mode bits for Timer/Counter1
-#define WGM10 0
-#define WGM11 1
-#define WGM12 3
-#define WGM13 4
-
 // Function prototypes
 void PWM_init(channel_t channel, waveGenMode_t waveGenMode, invertMode_t invertMode);
 void PWM_setTopValue(u16 topValue);
 void PWM_setDutyCycle_A(u8 dutyCycle);
 void PWM_setDutyCycle_B(u8 dutyCycle);
 void PWM_start(prescaler_t prescaler);
+void PWM_setFrequeny(u32 frequency);
 void PWM_stop();
+
 #endif // PWM_INTERFACE_H
