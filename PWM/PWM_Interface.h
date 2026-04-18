@@ -5,7 +5,7 @@
 #include "LIB/STD_TYPES.h"
 
 // CPU frequency
-#define F_CPU 16000000UL   // 16 MHz
+#define F_CLK 16000000UL   // 16 MHz
 
 // Wave generation mode bits for Timer/Counter1
 #define WGM10 0

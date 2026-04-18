@@ -177,7 +177,7 @@ void PWM_stop()
 void PWM_setFrequeny(u32 frequency)  // not less than 1kHz to avoid overflow in TOP value calculation
 {
     // Calculate TOP value for the desired frequency
-    u16 topValue = (F_CPU / (2 * frequency)) - 1;
+    u16 topValue = (F_CLK / (2 * frequency)) - 1;
 
     PWM_setTopValue(topValue);    // Set the TOP value in ICR1
 
