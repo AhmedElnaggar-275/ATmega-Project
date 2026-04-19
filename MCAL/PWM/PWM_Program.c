@@ -132,7 +132,7 @@ void PWM_setDutyCycle_A(u8 dutyCycle) // dutyCycle for channel A (OC1A)
         dutyCycle = 100; // because duty cycle is a percentage and cannot exceed 100%
     }
 
-    u16 topValue = ICR1L | (ICR1H << 8); // Get the current TOP value from ICR1
+    u16 topValue = ICR1L | ((u16)ICR1H << 8); // Get the current TOP value from ICR1
     /*example
     ICR1 = 1110011111011011
     then,
