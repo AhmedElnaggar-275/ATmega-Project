@@ -11,10 +11,16 @@ void PWM_init(channel_t channel, waveGenMode_t waveGenMode, invertMode_t invertM
         case CHANNEL_A:
             // configure OC1A pin (Pin 9 on Arduino Uno) as output
             setBit(DDRB, 1); // OC1A is on PB1
+
+            // disconnect OC1B pin (Pin 10 on Arduino Uno) from timer PWM operation
+            clearBit(TCCR1A, COM1B0); // bit 4
+            clearBit(TCCR1A, COM1B1); // bit 5
+
             switch(invertMode){
 
                 case NON_INVERT:
-                    // non-inverting mode: reset OC1A on compare match during upcounting, set OC1A on compare match during downcounting
+                    /* non-inverting mode: reset OC1A on compare match during upcounting, 
+                    set OC1A on compare match during downcounting */
                     clearBit(TCCR1A, COM1A0); // bit 6
                     setBit(TCCR1A, COM1A1);   // bit 7
                 break;
@@ -31,6 +37,10 @@ void PWM_init(channel_t channel, waveGenMode_t waveGenMode, invertMode_t invertM
             // configure OC1B pin (Pin 10 on Arduino Uno) as output
             setBit(DDRB, 2); // OC1B is on PB2
 
+            // disconnect OC1A pin (Pin 9 on Arduino Uno) from timer PWM operation
+            clearBit(TCCR1A, COM1A0); // bit 6
+            clearBit(TCCR1A, COM1A1); // bit 7
+            
             switch(invertMode){
 
                 case NON_INVERT:
@@ -125,6 +135,15 @@ void PWM_setTopValue(u16 topValue)
     */
 }
 
+void PWM_setFrequeny(u32 frequency)  // not less than 1kHz to avoid overflow in TOP value calculation
+{
+    // Calculate TOP value for the desired frequency
+    u16 topValue = (F_CLK / (2 * frequency)) - 1;
+
+    PWM_setTopValue(topValue);    // Set the TOP value in ICR1
+
+}
+
 void PWM_setDutyCycle_A(u8 dutyCycle) // dutyCycle for channel A (OC1A)
 {
     if (dutyCycle > 100)
@@ -163,22 +182,18 @@ void PWM_setDutyCycle_B(u8 dutyCycle) // dutyCycle for channel B (OC1B)
 
 }
 
-void PWM_start(prescaler_t prescaler)
-{
+void PWM_start(prescaler_t prescaler) 
+{   /* It is recommended to pass PSC_1but if it is required to divide 
+       your chosen frequency by a factor then chose
+       between PSC_1 , PSC_8 , PSC_64 , PSC_256 , PSC_1024 , where the number
+       is the divisor (division factor) */
+
+    clearBit(TCCR1B, 5); // clear the reserved bit as recommended in datasheet
     TCCR1B |= (prescaler); // Set the prescaler bits in TCCR1B to start the timer
 }
 
 void PWM_stop()
 {
     TCCR1B &= ~(7); // Clear the prescaler bits in TCCR1B to stop the timer
-}
-
-void PWM_setFrequeny(u32 frequency)  // not less than 1kHz to avoid overflow in TOP value calculation
-{
-    // Calculate TOP value for the desired frequency
-    u16 topValue = (F_CLK / (2 * frequency)) - 1;
-
-    PWM_setTopValue(topValue);    // Set the TOP value in ICR1
-
 }
 

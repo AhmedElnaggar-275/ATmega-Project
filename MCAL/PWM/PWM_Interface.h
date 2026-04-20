@@ -43,7 +43,7 @@ typedef enum
 
 typedef enum
 {
-    NO_clk,          // timer stops
+    NO_CLK,          // timer stops
     PSC_1,          // prescaler = 1 (no prescaling)
     PSC_8,          // prescaler = 8 (clock frequency is divided by 8)
     PSC_64,         // prescaler = 64 (clock frequency is divided by 64)

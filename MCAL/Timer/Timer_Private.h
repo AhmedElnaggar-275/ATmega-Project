@@ -8,5 +8,7 @@
 
 // Timer/Counter0 count value store Register
 #define TCNT0 *((volatile u8*)0x46)
+#define OCR0A *((volatile u8*)0x47)
+#define TIFR0 *((volatile u8*)0x35)
 
 #endif // TIMER_PRIVATE_H
