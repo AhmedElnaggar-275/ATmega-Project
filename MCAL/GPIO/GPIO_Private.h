@@ -1,6 +1,8 @@
 #ifndef GPIO_PRIVATE_H
 #define GPIO_PRIVATE_H
+
 #include "LIB/STD_TYPES.h"
+
 //Define Port B
 # define DDRB *((volatile u8*)0x24)
 # define PORTB *((volatile u8*)0x25)

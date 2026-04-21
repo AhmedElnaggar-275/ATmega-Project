@@ -37,7 +37,7 @@ void delay_us(u32 microseconds)
     u32 count = 0; // counter to keep track of elapsed microseconds
     while(count < microseconds)
     {
-        while (!(TIFR0 & (1 << OCF0A))); // Wait for the compare match flag to be set
+        while (!readBit(TIFR0, OCF0A)); // Wait for the compare match flag to be set
         setBit(TIFR0, OCF0A); // Clear the compare match flag by writing a 1 to it
         count++; // Increment the microsecond counter
         // each time the flag is set, it means 1 microsecond is elapsed
@@ -58,7 +58,7 @@ void delay_ms(u32 milliseconds)
     u32 count = 0; // counter to keep track of elapsed milliseconds
     while(count < milliseconds)
     {
-        while (!(TIFR0 & (1 << OCF0A))); // Wait for the compare match flag to be set
+        while (!readBit(TIFR0, OCF0A)); // Wait for the compare match flag to be set
         setBit(TIFR0, OCF0A); // Clear the compare match flag by writing a 1 to it
         count++; // Increment the millisecond counter
         // each time the flag is set, it means 1 ms is elapsed
