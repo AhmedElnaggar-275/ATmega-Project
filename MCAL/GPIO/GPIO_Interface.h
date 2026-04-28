@@ -13,7 +13,9 @@ typedef enum{
     D0,D1,D2,D3,D4,D5,D6,D7,D8,D9,
     D10,D11,D12,D13,A0,A1,A2,A3,A4,A5
 } enPins;
-
+// D0 to D7 are PD0 to PD7 (8 digital pins)
+// D8 to D13 are PB0 to PB5 (6 digital pins)
+// A0 to A5 are PC0 to PC5 (6 analog pins that can also be used as digital pins)
 
 
 void pinMode(enPins pin ,enMode mode);//determine the mode of the pin.

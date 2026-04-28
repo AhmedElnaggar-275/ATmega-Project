@@ -1,6 +1,7 @@
 #include "ADC_Interface.h"
 #include "ADC_Private.h"
 #include "STD_TYPES.h"
+#include "STD_BITMATH.h"
 void adc_Init(void)
 {
     // Set prescaler (important for ADC clock)
@@ -21,44 +22,44 @@ void analogReferenceWithPrescaler(ADC_Vref_t vref, ADC_Prescaler_t prescaler)
     {
         // From table 24-5 in the datasheet, we need to set the ADPS2:0 bits in the ADCSRA register to select the desired prescaler value.
         case ADC_PRESCALER_2:
-            ADCSRA |= (1 << 0); // Set ADPS0
-            ADCSRA &= ~(1 << 1); // Clear ADPS1
-            ADCSRA &= ~(1 << 2); // Clear ADPS2
+            setBit(ADCSRA, 0); // Set ADPS0
+            clearBit(ADCSRA, 1); // Clear ADPS1
+            clearBit(ADCSRA, 2); // Clear ADPS2
             break;
         case ADC_PRESCALER_4:
-            ADCSRA &= ~(1 << 0); // Clear ADPS0
-            ADCSRA |= (1 << 1);  // Set ADPS1
-            ADCSRA &= ~(1 << 2); // Clear ADPS2
+            clearBit(ADCSRA, 0); // Clear ADPS0
+            setBit(ADCSRA, 1);   // Set ADPS1
+            clearBit(ADCSRA, 2); // Clear ADPS2
             break;
         case ADC_PRESCALER_8:
-            ADCSRA |= (1 << 0); // Set ADPS0
-            ADCSRA |= (1 << 1); // Set ADPS1
-            ADCSRA &= ~(1 << 2); // Clear ADPS2
+            setBit(ADCSRA, 0); // Set ADPS0
+            setBit(ADCSRA, 1); // Set ADPS1
+            clearBit(ADCSRA, 2); // Clear ADPS2
             break;
         case ADC_PRESCALER_16:
-            ADCSRA &= ~(1 << 0); // Clear ADPS0
-            ADCSRA &= ~(1 << 1); // Clear ADPS1
-            ADCSRA |= (1 << 2);  // Set ADPS2
+            clearBit(ADCSRA, 0); // Clear ADPS0
+            clearBit(ADCSRA, 1); // Clear ADPS1
+            setBit(ADCSRA, 2);  // Set ADPS2
             break;
         case ADC_PRESCALER_32:
-            ADCSRA |= (1 << 0); // Set ADPS0
-            ADCSRA &= ~(1 << 1); // Clear ADPS1
-            ADCSRA |= (1 << 2);  // Set ADPS2
+            setBit(ADCSRA, 0); // Set ADPS0
+            clearBit(ADCSRA, 1); // Clear ADPS1
+            setBit(ADCSRA, 2);  // Set ADPS2
             break;
         case ADC_PRESCALER_64:
-            ADCSRA &= ~(1 << 0); // Clear ADPS0 
-            ADCSRA |= (1 << 1);  // Set ADPS1
-            ADCSRA |= (1 << 2);  // Set ADPS2
+            clearBit(ADCSRA, 0); // Clear ADPS0 
+            setBit(ADCSRA, 1);  // Set ADPS1
+            setBit(ADCSRA, 2);  // Set ADPS2
             break;
         case ADC_PRESCALER_128:
-            ADCSRA |= (1 << 0); // Set ADPS0
-            ADCSRA |= (1 << 1); // Set ADPS1
-            ADCSRA |= (1 << 2); // Set ADPS2
+            setBit(ADCSRA, 0); // Set ADPS0
+            setBit(ADCSRA, 1); // Set ADPS1
+            setBit(ADCSRA, 2); // Set ADPS2
             break;
         default:
-            ADCSRA |= (1 << 0); // Set ADPS0
-            ADCSRA |= (1 << 1); // Set ADPS1
-            ADCSRA |= (1 << 2); // Set ADPS2
+            setBit(ADCSRA, 0); // Set ADPS0
+            setBit(ADCSRA, 1); // Set ADPS1
+            setBit(ADCSRA, 2); // Set ADPS2
             break;
     }
     switch (vref)

@@ -2,9 +2,10 @@
 	#include "STD_BITMATH.h"
 	#include "GPIO_Interface.h"
 	#include "ADC_interface.h"
-	#include "Motor_Interface.h"
-	#include "Motor_private.h"
-	#include "Joystick_Interface.h"
+	#include "Motor_Declarations.h"
+	#include "Motor_Macros.h"
+	#include "Joystick_Declarations.h"
+	#include "Joystick_Definitions.h"
 
 	void setup(void)
 	{

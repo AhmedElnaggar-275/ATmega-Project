@@ -1,17 +1,21 @@
 #include "Motor_Declarations.h"
 #include "Motor_Macros.h"
 
-void motorInit(void)
+void motorInit(void) // Initialize control and enable pins for both motors
 {
+    // Set motor control pins as OUTPUT
     pinMode(MOTOR_1_IN1, OUTPUT);
     pinMode(MOTOR_1_IN2, OUTPUT);
     pinMode(MOTOR_2_IN3, OUTPUT);
     pinMode(MOTOR_2_IN4, OUTPUT);
+    
+    // Set motor enable pins as OUTPUT and then set them HIGH to enable the motors
     pinMode(MOTOR_1_ENA, OUTPUT);
     pinMode(MOTOR_2_ENB, OUTPUT);
     digitalWrite(MOTOR_1_ENA, HIGH); // Enable motor 1
     digitalWrite(MOTOR_2_ENB, HIGH); // Enable motor 2
-    motorStopAll();
+
+    motorStopAll(); // Ensure motors are stopped at initialization
 }
 void motorDrive(enMotorID motorID, enMotorDirecrtion direction)
 {

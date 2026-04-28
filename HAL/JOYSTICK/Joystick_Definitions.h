@@ -25,4 +25,4 @@
 #define JOYSTICK_LOWER      ( JOYSTICK_CENTER - JOYSTICK_DEADZONE/2)
 // for backward and left directions
 
-#endif // JOYSTICK_DEFINITIONS_H 
+#endif /* JOYSTICK_DEFINITIONS_H */

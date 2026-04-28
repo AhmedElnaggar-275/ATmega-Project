@@ -1,6 +1,6 @@
 #include "PWM_Interface.h"
 #include "PWM_Private.h"
-#include "GPIO_Private.h"
+#include "GPIO_Interface.h"
 #include "STD_TYPES.h"
 #include "STD_BITMATH.h"
 
@@ -11,7 +11,7 @@ void PWM_init(channel_t channel, waveGenMode_t waveGenMode, invertMode_t invertM
 
         case CHANNEL_A:
             // configure OC1A pin (Pin 9 on Arduino Uno) as output
-            setBit(DDRB, 1); // OC1A is on PB1
+            pinMode(9, OUTPUT); // OC1A is on PB1
 
             // disconnect OC1B pin (Pin 10 on Arduino Uno) from timer PWM operation
             clearBit(TCCR1A, COM1B0); // bit 4
@@ -36,7 +36,7 @@ void PWM_init(channel_t channel, waveGenMode_t waveGenMode, invertMode_t invertM
 
         case CHANNEL_B:
             // configure OC1B pin (Pin 10 on Arduino Uno) as output
-            setBit(DDRB, 2); // OC1B is on PB2
+            pinMode(10, OUTPUT); // OC1B is on PB2
 
             // disconnect OC1A pin (Pin 9 on Arduino Uno) from timer PWM operation
             clearBit(TCCR1A, COM1A0); // bit 6
@@ -60,8 +60,8 @@ void PWM_init(channel_t channel, waveGenMode_t waveGenMode, invertMode_t invertM
         
         case DUAL_CHANNEL:
             // configure both OC1A and OC1B pins as outputs
-            setBit(DDRB, 1); // OC1A is on PB1
-            setBit(DDRB, 2); // OC1B is on PB2
+            pinMode(9, OUTPUT); // OC1A is on PB1
+            pinMode(10, OUTPUT); // OC1B is on PB2
 
             switch(invertMode){
 

@@ -3,8 +3,13 @@
 
 void getPinMap(enPins pin,u8**ddr,u8**port,u8**pin_reg,u8*bit)
 {
+    /* This function takes the address of the pointers that will hold
+       the addresses of the DDRx, PORTx, and PINx registers for the specified pin */
+    /* It also takes the address of the bit position to change bit value accordingly 
+       with the specified pin */
+
     // PortD from D0 to D7
-    if(pin <= D7)
+    if(pin <= D7)   // PD0 to PD7 (8 digital pins)
     {
         *ddr = &DDRD;
         *port = &PORTD;
@@ -12,7 +17,7 @@ void getPinMap(enPins pin,u8**ddr,u8**port,u8**pin_reg,u8*bit)
         *bit = pin;
     }
     // PORTB from D8 to D13
-    else if(pin>=D8 && pin<=D13)
+    else if(pin>=D8 && pin<=D13) // PB0 to PB5 (6 digital pins)
     {
         *ddr = &DDRB;
         *port = &PORTB;
@@ -20,7 +25,7 @@ void getPinMap(enPins pin,u8**ddr,u8**port,u8**pin_reg,u8*bit)
         *bit = pin - D8;
     }
     // PORTC from A0 to A5
-    else if (pin>=A0 && pin<=A5)
+    else if (pin>=A0 && pin<=A5) // PC0 to PC5 (6 analog pins that can also be used as digital pins)
     {
         *ddr = &DDRC;
         *port = &PORTC;
@@ -32,35 +37,46 @@ void getPinMap(enPins pin,u8**ddr,u8**port,u8**pin_reg,u8*bit)
 void pinMode(enPins pin ,enMode mode)
 {
     u8*ddr,*port, *pin_reg,bit;
-    getPinMap(pin,&ddr,&port,&pin_reg,&bit);
+
+    getPinMap(pin,&ddr,&port,&pin_reg,&bit); // Get the address of the target port registers 
+                                             // and the bit position for the specified pin
+
     switch (mode)
     {
     case OUTPUT:
-        setBit(*ddr,bit);//Make pin Output
+        setBit(*ddr,bit); // Configure pin as Output
         break;
     
     case INPUT:
-        clearBit(*ddr,bit);// Make pin Input
+        clearBit(*ddr,bit); // Configure pin as Input
         break;
 
     case INPUT_PULLUP:
-        clearBit(*ddr,bit);// Make pin Input
-        setBit(*port,bit);// Enable pull-up resistor
+        setBit(MCUCR, 0); // PULL_UP resistors disable is off (PULL_UP enabled)
+        clearBit(*ddr,bit); // Configure pin as Input
+        setBit(*port,bit); // Use PULL_UP resistor option for the pin
         break;
     }
 }
 enValue digitalRead (enPins pin)
 {
     u8*ddr,*port,bit,*pin_reg;
-    getPinMap(pin,&ddr,&port,&pin_reg,&bit);// Get the address of the right port
-    clearBit(*ddr,bit);// Make pin Input
+
+    getPinMap(pin,&ddr,&port,&pin_reg,&bit); // Get the address of the target port registers 
+                                             // and the bit position for the specified pin
+
+    clearBit(*ddr,bit);// configure pin as Input
+
     return (enValue)(readBit(*pin_reg,bit));// return 0 means LOW , returns 1 means HIGH.
 }
 void digitalWrite (enPins pin , enValue value)
 {
     u8*ddr,*port, *pin_reg,bit;
-    getPinMap(pin,&ddr,&port,&pin_reg,&bit);// Get the address of the right port
-    setBit(*ddr,bit);//make pin Output 
+
+    getPinMap(pin,&ddr,&port,&pin_reg,&bit); // Get the address of the target port registers 
+                                             // and the bit position for the specified pin
+
+    setBit(*ddr,bit);// configure pin as Output 
     switch (value)
     {
     case HIGH:
@@ -75,14 +91,10 @@ void digitalWrite (enPins pin , enValue value)
 void digitalToggle (enPins pin)
 {
     u8*ddr,*port,*pin_reg,bit;
-    getPinMap(pin,&ddr,&port,&pin_reg,&bit);// Get the address of the right port
-    setBit(*ddr,bit);// Make pin Output
-    toggleBit(*port,bit);// Toggle the value of the pin
-}
-void delay(u16 ms)
-{
-    while(ms--)
-    {
-        for(u16 i=0;i<1000;i++);// Do nothing for 1 millisecond
-    }
+
+    getPinMap(pin,&ddr,&port,&pin_reg,&bit); // Get the address of the target port registers 
+                                             // and the bit position for the specified pin
+    setBit(*ddr,bit);// configure pin as Output
+
+    toggleBit(*port,bit);// Toggle pin value
 }

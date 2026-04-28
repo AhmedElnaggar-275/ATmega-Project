@@ -16,4 +16,7 @@
 # define PORTD *((volatile u8*)0x2B)
 # define PIND *((volatile u8*)0x29)
 
+// for Pull-up enable and disable
+# define MCUCR *((volatile u8*)0x55)
+
 #endif
