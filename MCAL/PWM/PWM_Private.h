@@ -1,6 +1,7 @@
 #ifndef PWM_PRIVATE_H
 #define PWM_PRIVATE_H
-#include "LIB/STD_TYPES.h"
+
+#include "STD_TYPES.h"
 
 // Timer/Counter1 control Registers
 #define TCCR1A *((volatile u8*)0x80)

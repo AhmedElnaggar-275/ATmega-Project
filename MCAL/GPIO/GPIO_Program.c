@@ -1,4 +1,5 @@
 #include "GPIO_Interface.h"
+#include "STD_BITMATH.h"
 
 void getPinMap(enPins pin,u8**ddr,u8**port,u8**pin_reg,u8*bit)
 {

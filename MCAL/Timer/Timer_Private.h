@@ -1,6 +1,6 @@
 #ifndef TIMER_PRIVATE_H
 #define TIMER_PRIVATE_H
-#include "LIB/STD_TYPES.h"
+#include "STD_TYPES.h"
 
 // Timer/Counter0 control Registers
 #define TCCR0A *((volatile u8*)0x44)

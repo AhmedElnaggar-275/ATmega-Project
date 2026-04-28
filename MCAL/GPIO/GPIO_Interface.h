@@ -15,11 +15,7 @@ typedef enum{
 } enPins;
 
 
-//define macros os function 
-#define setBit(reg,bit) (reg |= (1<<bit)) 
-#define clearBit(reg,bit) (reg &= ~(1<<bit))
-#define toggleBit(reg,bit) (reg ^=(1<<bit))
-#define readBit(reg,bit) ((reg & (1<<bit)))
+
 void pinMode(enPins pin ,enMode mode);//determine the mode of the pin.
 enValue digitalRead (enPins pin);// to read the value of the pin.
 void digitalWrite (enPins pin , enValue value);// to write value on the pin .

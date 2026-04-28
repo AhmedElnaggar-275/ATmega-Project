@@ -1,7 +1,7 @@
 #ifndef ADC_PRIVATE_H
 #define ADC_PRIVATE_H
 
-#include "LIB/STD_TYPES.h"
+#include "STD_TYPES.h"
 
 #define ADMUX *((volatile u8*)0x7C)
 #define ADCSRA *((volatile u8*)0x7A)

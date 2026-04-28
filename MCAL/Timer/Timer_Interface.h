@@ -2,7 +2,7 @@
 #define TIMER_INTERFACE_H
 
 #include "TIMER_Private.h"
-#include "LIB/STD_TYPES.h"
+#include "STD_TYPES.h"
 
 // wave generation mode bits for Timer/Counter0
 #define WGM00 0  // bit 0 in TCCR0A
@@ -19,10 +19,10 @@ typedef enum
     PSC_64,         // prescaler = 64 (clock frequency is divided by 64)
     PSC_256,        // prescaler = 256 (clock frequency is divided by 256)
     PSC_1024,       // prescaler = 1024 (clock frequency is divided by 1024)
-} prescaler_t;
+} Timer_PSC_t;
 
 // functions prototypes
-void setPrescaler(prescaler_t prescaler);
+void setPrescaler(Timer_PSC_t prescaler);
 void set_CTC_Mode(void); // to set the TOP value by setting OCR0A as we want 
 void setTopValue(u8 topValue); // using OCR0A
 void delay_us(u32 microseconds);

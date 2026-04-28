@@ -2,7 +2,7 @@
 #define PWM_INTERFACE_H
 
 #include "PWM_Private.h"
-#include "LIB/STD_TYPES.h"
+#include "STD_TYPES.h"
 
 // CPU frequency
 #define F_CLK 16000000UL   // 16 MHz
@@ -49,7 +49,7 @@ typedef enum
     PSC_64,         // prescaler = 64 (clock frequency is divided by 64)
     PSC_256,        // prescaler = 256 (clock frequency is divided by 256)
     PSC_1024,       // prescaler = 1024 (clock frequency is divided by 1024)
-} prescaler_t;
+} PWM_PSC_t;
 // note that PWM freq in timer1 is determined by the formula :
 // F_pwm = F_clk / (prescaler * (1 + TOP)*2) for Phase correct and Phase freq correct
 //F_pwm = F_clk / (prescaler * (1 + TOP)) for Fast PWM
@@ -60,7 +60,7 @@ void PWM_init(channel_t channel, waveGenMode_t waveGenMode, invertMode_t invertM
 void PWM_setTopValue(u16 topValue);
 void PWM_setDutyCycle_A(u8 dutyCycle);
 void PWM_setDutyCycle_B(u8 dutyCycle);
-void PWM_start(prescaler_t prescaler);
+void PWM_start(PWM_PSC_t prescaler);
 void PWM_setFrequeny(u32 frequency);
 void PWM_stop();
 

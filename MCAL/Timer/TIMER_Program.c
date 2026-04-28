@@ -1,8 +1,9 @@
 #include "TIMER_Private.h"
 #include "TIMER_Interface.h"
-#include "LIB/STD_TYPES.h"
+#include "STD_TYPES.h"
+#include "STD_BITMATH.h"
 
-void setPrescaler(prescaler_t prescaler)
+void setPrescaler(Timer_PSC_t prescaler)
 {
     TCCR0B |= (prescaler); // Set the prescaler bits in TCCR0B to start the timer
 }

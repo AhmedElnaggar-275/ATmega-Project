@@ -4,12 +4,12 @@
 
 typedef enum
 {
-    A0=0,
-    A1,
-    A2,
-    A3,
-    A4,
-    A5,
+    AN0=0,
+    AN1,
+    AN2,
+    AN3,
+    AN4,
+    AN5,
 } ADC_Channel_t;
 typedef enum
 {

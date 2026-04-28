@@ -1,6 +1,6 @@
 #include "ADC_Interface.h"
 #include "ADC_Private.h"
-#include "LIB/STD_TYPES.h"
+#include "STD_TYPES.h"
 void adc_Init(void)
 {
     // Set prescaler (important for ADC clock)

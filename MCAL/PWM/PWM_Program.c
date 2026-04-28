@@ -1,7 +1,8 @@
 #include "PWM_Interface.h"
 #include "PWM_Private.h"
-#include "MCAL/GPIO/GPIO_Interface.h"
-#include "LIB/STD_TYPES.h"
+#include "GPIO_Private.h"
+#include "STD_TYPES.h"
+#include "STD_BITMATH.h"
 
 // Function implementations
 void PWM_init(channel_t channel, waveGenMode_t waveGenMode, invertMode_t invertMode)
@@ -182,7 +183,7 @@ void PWM_setDutyCycle_B(u8 dutyCycle) // dutyCycle for channel B (OC1B)
 
 }
 
-void PWM_start(prescaler_t prescaler) 
+void PWM_start(PWM_PSC_t prescaler) 
 {   /* It is recommended to pass PSC_1but if it is required to divide 
        your chosen frequency by a factor then chose
        between PSC_1 , PSC_8 , PSC_64 , PSC_256 , PSC_1024 , where the number
