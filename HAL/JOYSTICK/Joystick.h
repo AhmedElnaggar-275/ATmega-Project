@@ -1,6 +1,7 @@
-#ifndef JOYSTICK_DEFINITIONS_H
-#define JOYSTICK_DEFINITIONS_H
+#ifndef JOYSTICK_H
+#define JOYSTICK_H
 
+#include "STD_TYPES.h"
 #include "GPIO_Interface.h"
 #include "ADC_Interface.h"
 
@@ -25,4 +26,22 @@
 #define JOYSTICK_LOWER      ( JOYSTICK_CENTER - JOYSTICK_DEADZONE/2)
 // for backward and left directions
 
-#endif /* JOYSTICK_DEFINITIONS_H */
+typedef enum 
+{
+    Stop = 0,
+    Forward,
+    Backward,
+    Right,
+    Left
+} enJoystickDirection;  // Enum to represent joystick directions
+ typedef struct {
+    u16 Y;
+    u16 X;
+ } stJoystickReading;  // Struct to hold joystick readings for X and Y axes
+
+ void joystickRead(stJoystickReading * reading);
+ // Function to read the joystick's X and Y values and store them in the structure
+
+ enJoystickDirection joystickGetDirection(void); // Joystick action
+
+#endif /* JOYSTICK_H */

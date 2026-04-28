@@ -1,5 +1,4 @@
-#include "Joystick_Definitions.h"
-#include "Joystick_Declarations.h"
+#include "Joystick.h"
 
  void joystickRead(stJoystickReading * reading)
  {
@@ -24,12 +23,12 @@
     {
         return Backward;
     }
-    else if(Reads.X>JOYSTICK_UPPER)
+    else if(Reads.X>JOYSTICK_UPPER) // same as y-axis
     {
         return Right;
 
     }
-    else if(Reads.X<JOYSTICK_LOWER)
+    else if(Reads.X<JOYSTICK_LOWER) // same as y-axis
     {
         return Left;
     }

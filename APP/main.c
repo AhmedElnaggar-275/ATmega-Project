@@ -1,11 +1,4 @@
-	#include "STD_TYPES.h"
-	#include "STD_BITMATH.h"
-	#include "GPIO_Interface.h"
-	#include "ADC_interface.h"
-	#include "Motor_Declarations.h"
-	#include "Motor_Macros.h"
-	#include "Joystick_Declarations.h"
-	#include "Joystick_Definitions.h"
+	#include "headers.h"
 
 	void setup(void)
 	{
@@ -14,7 +7,10 @@
 	}
 	void loop(void)
 	{
+		checkBatteryVoltage();
+
 		enJoystickDirection direction = joystickGetDirection();
+		
 		switch(direction)
 		{
 			case Forward:

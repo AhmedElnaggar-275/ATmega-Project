@@ -23,7 +23,7 @@ void setTopValue(u8 topValue)
 
 void stopTimer(void)
 {
-    TCCR0B &= ~(7); // Clear the prescaler bits in TCCR0B to stop the timer
+    TCCR0B &= ~(0x07); // Clear the prescaler bits in TCCR0B to stop the timer
 }
 
 void delay_us(u32 microseconds)

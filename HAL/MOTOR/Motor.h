@@ -1,5 +1,5 @@
-#ifndef MOTOR_MACROS_H
-#define MOTOR_MACROS_H
+#ifndef MOTOR_H
+#define MOTOR_H
 
 #include "GPIO_Interface.h"
 
@@ -30,4 +30,27 @@
 
 #define motor2Stop()       { digitalWrite(MOTOR_2_IN3, LOW); digitalWrite(MOTOR_2_IN4, LOW);  }
 
-#endif /* MOTOR_MACROS_H */
+
+typedef enum
+{
+    motorForWard = 0,
+    motorBackWard,
+    motorStop
+} enMotorDirection;
+
+typedef enum
+{
+    motor1 = 0,
+    motor2,
+} enMotorID;
+
+void motorInit(void);
+void motorDrive(enMotorID motorID, enMotorDirection direction);
+void motorStopAll(void);
+void motorForward(void);
+void motorBackward(void);
+void motorTurnRight(void);
+void motorTurnLeft(void);
+
+
+#endif /* MOTOR_H */

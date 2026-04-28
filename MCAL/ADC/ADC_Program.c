@@ -65,16 +65,16 @@ void analogReferenceWithPrescaler(ADC_Vref_t vref, ADC_Prescaler_t prescaler)
     switch (vref)
     {
     case EXTERNAL:// External reference voltage at AREF pin
-        ADMUX &= ~(1 << 6); // Clear REFS0
-        ADMUX &= ~(1 << 7); // Clear REFS1
+        clearBit(ADMUX, 6); // Clear REFS0
+        clearBit(ADMUX, 7); // Clear REFS1
         break;
     case DEFAULT:// AVcc reference with external capacitor at AREF pin
-        ADMUX |= (1 << 6); // Set REFS0
-        ADMUX &= ~(1 << 7); // Clear REFS1
+        setBit(ADMUX, 6); // Set REFS0
+        clearBit(ADMUX, 7); // Clear REFS1
         break;
     case INTERNAL:// Internal 1.1V Voltage Reference with external capacitor at AREF pin
-        ADMUX |= (1 << 6); // Set REFS0
-        ADMUX |= (1 << 7); // Set REFS1
+        setBit(ADMUX, 6); // Set REFS0
+        setBit(ADMUX, 7); // Set REFS1
         break;
         
     }
@@ -90,8 +90,8 @@ u16 analogRead(ADC_Channel_t channel)
     // Clear the MUX bits in the ADMUX register to select the desired ADC channel
     ADMUX &= 0xF0; // Clear the lower 4 bits (MUX3:0) to select the channel
     ADMUX |= channel; // Set the desired channel (0-5)
-    ADCSRA |= (1 << 6); // Start the conversion by setting the ADSC bit in the ADCSRA register
-    while (ADCSRA & (1 << 6)); // Wait for the conversion to
+    setBit(ADCSRA, 6); // Start the conversion by setting the ADSC bit in the ADCSRA register
+    while (ADCSRA & (1 << 6)); // Wait for the conversion to complete
     // complete by checking the ADSC bit. The bit will be cleared when the conversion is finished.
     u16 result = ADCL | (ADCH << 8);// Read the ADC result from the ADCL and ADCH registers. The result is a 10-bit value, so we combine the two registers to get the full result.
     return (result);

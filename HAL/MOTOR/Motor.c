@@ -1,5 +1,4 @@
-#include "Motor_Declarations.h"
-#include "Motor_Macros.h"
+#include "Motor.h"
 
 void motorInit(void) // Initialize control and enable pins for both motors
 {
@@ -15,9 +14,9 @@ void motorInit(void) // Initialize control and enable pins for both motors
     digitalWrite(MOTOR_1_ENA, HIGH); // Enable motor 1
     digitalWrite(MOTOR_2_ENB, HIGH); // Enable motor 2
 
-    motorStopAll(); // Ensure motors are stopped at initialization
+    motorStopAll(); // Ensure motors are stopped at the beginning
 }
-void motorDrive(enMotorID motorID, enMotorDirecrtion direction)
+void motorDrive(enMotorID motorID, enMotorDirection direction)
 {
     
     if(motorID == motor1)
