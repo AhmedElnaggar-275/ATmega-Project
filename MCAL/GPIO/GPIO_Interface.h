@@ -11,7 +11,7 @@ typedef enum
 } enValue;
 typedef enum{
     D0,D1,D2,D3,D4,D5,D6,D7,D8,D9,
-    D10,D11,D12,D13,A0,A1,A2,A3,A4,A5
+    D10,D11,D12,D13
 } enPins;
 // D0 to D7 are PD0 to PD7 (8 digital pins)
 // D8 to D13 are PB0 to PB5 (6 digital pins)

@@ -1,16 +1,15 @@
-	#include "headers.h"
+#include "headers.h"
 
-	void setup(void)
+
+void setup(void)
 	{
 		ADC_INIT();
 		motorInit();
+		batteryInit();
 	}
 	void loop(void)
 	{
-		checkBatteryVoltage();
-
-		enJoystickDirection direction = joystickGetDirection();
-		
+		enJoystickDirection direction = getDirectionFromJoystick();
 		switch(direction)
 		{
 			case Forward:
@@ -30,6 +29,7 @@
 					motorStopAll();
 					break;
 		}
+		checkBatteryVoltage();
 	}
 	int main(void)
 	{

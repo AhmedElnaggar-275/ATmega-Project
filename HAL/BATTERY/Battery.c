@@ -7,11 +7,12 @@ void batteryInit(void)
     digitalWrite(ALERT_PIN,LOW);// Initialize the alert pin to LOW
 }
 
-u16 readBatteryVoltage(void)
+f32 readBatteryVoltage(void)
 {
-    u16 batteryVolt = analogRead(VOLTAGE_READ_CH) ; // Read the battery voltage from the defined ADC channel
-    batteryVolt = (batteryVolt/1023)*5*5; // Convert the ADC value to voltage (assuming a 5V reference and 10-bit ADC resolution)
-    return batteryVolt;
+    f32 batteryVolt = analogRead(VOLTAGE_READ_CH) ; // Read the battery voltage from the defined ADC channel
+    batteryVolt = (batteryVolt/1023.0)*5.0; // Convert the ADC value to voltage (assuming a 5V reference and 10-bit ADC resolution)
+    return batteryVolt*5;  
+    // Scale the voltage to the actual battery voltage (assuming a voltage divider with a ratio of 1:5)
 }
 
 void checkBatteryVoltage(void)

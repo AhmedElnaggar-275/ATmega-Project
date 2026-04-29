@@ -5,14 +5,14 @@
 #include "GPIO_Interface.h"
 #include "ADC_Interface.h"
 
-#define JOYSTICK_X_CH   AN1 // ADC channel for X-axis
-#define JOYSTICK_Y_CH   AN0 // ADC channel for Y-axis
+#define JOYSTICK_X_CH   A1 // ADC channel for X-axis
+#define JOYSTICK_Y_CH   A0 // ADC channel for Y-axis
 
 
 #define JOYSTICK_CENTER  512
 // for 10-bit ADC, the center value is around 512
-// the joystick is stopped at the center position
-// Joystick spans from 0-5V and its center is around 2.5V
+// the joystick stops the motors at its center position
+// Joystick spans from 0-5V and its center is around 2.5V corresponding to 512 in 10-bit ADC resolution (0-1023)
 /* Due to manufacturing tolerances and noise, a zone should be set
    instead of a single position '512' to avoid false readings and unstable behavior */
 // This zone is called the "dead zone" 

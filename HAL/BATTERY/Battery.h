@@ -13,7 +13,7 @@
 
 
 void batteryInit(void); // Initialize the battery monitoring system
-u16 readBatteryVoltage(void); // Read the current battery voltage and return it as a 16-bit 
+f32 readBatteryVoltage(void); // Read the current battery voltage and return it as a 16-bit 
 void checkBatteryVoltage(void);// Check the battery voltage and trigger an alert if it is below the defined threshold
 
 #endif
