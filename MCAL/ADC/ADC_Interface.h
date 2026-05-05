@@ -5,12 +5,12 @@
 
 typedef enum
 {
-    A0=0,
-    A1,
-    A2,
-    A3,
-    A4,
-    A5,
+    AN0=0,
+    AN1,
+    AN2,
+    AN3,
+    AN4,
+    AN5,
 } enADC_Channels;// Enumeration for ADC channels, representing the available analog input pins on the microcontroller
 typedef enum
 {

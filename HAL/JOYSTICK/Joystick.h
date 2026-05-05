@@ -5,8 +5,8 @@
 #include "GPIO_Interface.h"
 #include "ADC_Interface.h"
 
-#define JOYSTICK_X_CH   A1 // ADC channel for X-axis
-#define JOYSTICK_Y_CH   A0 // ADC channel for Y-axis
+#define JOYSTICK_X_CH   AN1 // ADC channel for X-axis
+#define JOYSTICK_Y_CH   AN0 // ADC channel for Y-axis
 
 
 #define JOYSTICK_CENTER  512

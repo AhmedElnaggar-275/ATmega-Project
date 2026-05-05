@@ -6,9 +6,9 @@
 #include "STD_TYPES.h"
 
 
-#define VOLTAGE_READ_CH   A2 // Define the ADC channel for battery voltage reading
+#define VOLTAGE_READ_CH   AN2 // Define the ADC channel for battery voltage reading
 #define ALERT_PIN         D2 // Define the pin for battery voltage reading and alert signal
-#define BATTERY_LOW_VOLTAGE  6 // Define the voltage threshold for low battery alert
+#define BATTERY_LOW_VOLTAGE  8.0 // Define the voltage threshold for low battery alert
 
 
 

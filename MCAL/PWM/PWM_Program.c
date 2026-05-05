@@ -82,43 +82,43 @@ void PWM_init(channel_t channel, waveGenMode_t waveGenMode, invertMode_t invertM
                 break;
             }
         break;
+        }
+    switch (waveGenMode){
+            case FAST_PWM:  
+            // Fast PWM mode with TOP defined by ICR1 , compare by OCR1x
+            // WGM13:10 = 1110 for Fast PWM with TOP defined by ICR1
+                clearBit(TCCR1A, WGM10);
+                setBit(TCCR1A, WGM11);
+                setBit(TCCR1B, WGM12);
+                setBit(TCCR1B, WGM13);
+            break;
 
-        switch (waveGenMode){
-                case FAST_PWM:  
-                // Fast PWM mode with TOP defined by ICR1 , compare by OCR1x
-                // WGM13:10 = 1110 for Fast PWM with TOP defined by ICR1
-                    clearBit(TCCR1A, WGM10);
-                    setBit(TCCR1A, WGM11);
-                    setBit(TCCR1B, WGM12);
-                    setBit(TCCR1B, WGM13);
-                break;
+            case PHASE_CORRECT_PWM:  
+            // Phase Correct PWM mode with TOP defined by ICR1 , compare by OCR1x
+            // WGM13:10 = 1010 for Phase Correct PWM with TOP defined by ICR1
+                clearBit(TCCR1A, WGM10);
+                setBit(TCCR1A, WGM11);
+                clearBit(TCCR1B, WGM12);
+                setBit(TCCR1B, WGM13);
+            break;
 
-                case PHASE_CORRECT_PWM:  
-                // Phase Correct PWM mode with TOP defined by ICR1 , compare by OCR1x
-                // WGM13:10 = 1010 for Phase Correct PWM with TOP defined by ICR1
-                    clearBit(TCCR1A, WGM10);
-                    setBit(TCCR1A, WGM11);
-                    clearBit(TCCR1B, WGM12);
-                    setBit(TCCR1B, WGM13);
-                break;
-
-                case PHASE_FREQ_CORRECT_PWM: 
-                // Phase and Frequency Correct PWM mode with TOP defined by ICR1 , compare by OCR1x
-                // WGM13:10 = 1000 for Phase and Frequency Correct PWM with TOP defined by ICR1
-                    clearBit(TCCR1A, WGM10);
-                    clearBit(TCCR1A, WGM11);
-                    clearBit(TCCR1B, WGM12);
-                    setBit(TCCR1B, WGM13);
+            case PHASE_FREQ_CORRECT_PWM: 
+            // Phase and Frequency Correct PWM mode with TOP defined by ICR1 , compare by OCR1x
+            // WGM13:10 = 1000 for Phase and Frequency Correct PWM with TOP defined by ICR1
+                clearBit(TCCR1A, WGM10);
+                clearBit(TCCR1A, WGM11);
+                clearBit(TCCR1B, WGM12);
+                setBit(TCCR1B, WGM13);
                 break;
             }
-    }
+            
 }
 
 void PWM_setTopValue(u16 topValue)
 {
     
 // bits in ICR1L will be set to the lower 8 bits of topValue , other bits of topValue will be cleared
-    ICR1L = (u8)(topValue & 0xFF); 
+    ICR1L = (u8)(topValue & 0xFF);
 // bits in ICR1H will be set to the upper 8 bits of topValue , other bits will be cleared
     ICR1H = (u8)((topValue >> 8) & 0xFF);
     /*example

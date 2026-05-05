@@ -24,6 +24,13 @@ void getPinMap(enPins pin,u8**ddr,u8**port,u8**pin_reg,u8*bit)
         *pin_reg = &PINB;
         *bit = pin - D8;
     }
+    else if(pin>=A0 && pin<=A5) // PC0 to PC5 (6 analog pins that can also be used as digital pins)
+    {
+        *ddr = &DDRC;
+        *port = &PORTC;
+        *pin_reg = &PINC;
+        *bit = pin - A0;
+    }
 }
 void pinMode(enPins pin ,enMode mode)
 {
