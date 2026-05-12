@@ -63,5 +63,6 @@ void PWM_setDutyCycle_B(u8 dutyCycle);
 void PWM_start(PWM_PSC_t prescaler);
 void PWM_setFrequeny(u32 frequency);
 void PWM_stop();
+void analogWrite(u8 pin , u8 dutyCycle , u32 frequency , PWM_PSC_t prescaler);
 
 #endif // PWM_INTERFACE_H

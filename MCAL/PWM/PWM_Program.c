@@ -114,21 +114,24 @@ void PWM_init(channel_t channel, waveGenMode_t waveGenMode, invertMode_t invertM
             
 }
 
-void PWM_setTopValue(u16 topValue)
+void PWM_setTopValue(f32 topValue)
 {
-    
-// bits in ICR1L will be set to the lower 8 bits of topValue , other bits of topValue will be cleared
-    ICR1L = (u8)(topValue & 0xFF);
-// bits in ICR1H will be set to the upper 8 bits of topValue , other bits will be cleared
-    ICR1H = (u8)((topValue >> 8) & 0xFF);
+    u16 topValue_int = (u16)(topValue + 0.5f); // Ensure topValue is treated as a 16-bit unsigned integer   
+
+    // bits in ICR1H will be set to the upper 8 bits of topValue , other bits will be cleared
+    ICR1H = (u8)((topValue_int >> 8) & 0xFF);
+
+    // bits in ICR1L will be set to the lower 8 bits of topValue , other bits of topValue will be cleared
+    ICR1L = (u8)(topValue_int & 0xFF);
+
     /*example
     if topValue = 1110011111011011
     then,
-    ICR1L = (u8)(topValue & 0xFF) 
+    ICR1L = (u8)(topValue_int & 0xFF) 
           = (u8)(1110011111011011 & 0000000011111111) 
           = (u8)(0000000011011011) 
           = 11011011 (ICR1L will be set to the lower 8 bits of topValue)
-    ICR1H = (u8)((topValue >> 8) & 0xFF) 
+    ICR1H = (u8)((topValue_int >> 8) & 0xFF) 
           = (u8)((1110011111011011 >> 8) & 0000000011111111) 
           = (u8)(11100111 & 0000000011111111)
           = (u8)(0000000011100111)
@@ -136,10 +139,10 @@ void PWM_setTopValue(u16 topValue)
     */
 }
 
-void PWM_setFrequeny(u32 frequency)  // not less than 1kHz to avoid overflow in TOP value calculation
+void PWM_setFrequeny(f32 frequency)  // not less than 1kHz to avoid overflow in TOP value calculation
 {
     // Calculate TOP value for the desired frequency
-    u16 topValue = (F_CLK / (2 * frequency)) - 1;
+    f32 topValue = (F_CLK / (2 * frequency)) - 1;
 
     PWM_setTopValue(topValue);    // Set the TOP value in ICR1
 
@@ -198,3 +201,29 @@ void PWM_stop()
     TCCR1B &= ~(7); // Clear the prescaler bits in TCCR1B to stop the timer
 }
 
+void analogWrite(u8 pin , u8 dutyCycle , u32 frequency , PWM_PSC_t prescaler)
+{
+    if (pin == 9) // OC1A pin
+    {
+        PWM_init(CHANNEL_A, PHASE_FREQ_CORRECT_PWM, NON_INVERT); // Initialize PWM for channel A with Fast PWM mode and non-inverting mode
+        PWM_setFrequeny(frequency); // Set the desired frequency
+        PWM_setDutyCycle_A(dutyCycle); // Set the desired duty cycle for channel A
+        PWM_start(prescaler); // Start the PWM with the specified prescaler
+    }
+    else if (pin == 10) // OC1B pin
+    {
+        PWM_init(CHANNEL_B, PHASE_FREQ_CORRECT_PWM, NON_INVERT); // Initialize PWM for channel B with Fast PWM mode and non-inverting mode
+        PWM_setFrequeny(frequency); // Set the desired frequency
+        PWM_setDutyCycle_B(dutyCycle); // Set the desired duty cycle for channel B
+        PWM_start(prescaler); // Start the PWM with the specified prescaler
+    }
+}
+
+void analogWriteDual(u8 dutyCycleA , u8 dutyCycleB , u32 frequency , PWM_PSC_t prescaler)
+{
+    PWM_init(DUAL_CHANNEL, PHASE_FREQ_CORRECT_PWM, NON_INVERT); // Initialize PWM for both channels with Fast PWM mode and non-inverting mode
+    PWM_setFrequeny(frequency); // Set the desired frequency
+    PWM_setDutyCycle_A(dutyCycleA); // Set the desired duty cycle for channel A
+    PWM_setDutyCycle_B(dutyCycleB); // Set the desired duty cycle for channel B
+    PWM_start(prescaler); // Start the PWM with the specified prescaler
+}
