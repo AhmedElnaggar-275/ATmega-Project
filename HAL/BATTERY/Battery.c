@@ -21,4 +21,8 @@ void checkBatteryVoltage(void)
     {
         digitalWrite(ALERT_PIN,HIGH);// Trigger the alert if the battery voltage is below the threshold
     }
+    else
+    {
+        digitalWrite(ALERT_PIN,LOW);// Keep the alert pin LOW if the battery voltage is above the threshold
+    }
 }
